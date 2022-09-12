@@ -1,13 +1,12 @@
 <template>
   <div class="vue-tree-select container">
     <div class="d-flex mb-4">
-      <input v-model="limit" class="form-control" />
-      <button @click="getData" class="btn btn-success">Click</button>
+      <input @keydown.enter="changeData" v-model="limit" class="form-control" />
+      <button @click="changeData" class="btn btn-success">Click</button>
     </div>
 
     <treeselect
       v-model="value"
-      :alwaysOpen="true"
       :multiple="true"
       :options="options"
       :load-options="loadOptions"
@@ -36,7 +35,6 @@ export default {
           label: node.title,
         };
       },
-      ttt: null,
     };
   },
 
@@ -45,9 +43,8 @@ export default {
   },
 
   methods: {
-    getData() {
+    changeData() {
       this.options = null;
-      this.loadOptions({ callback: this.ttt });
     },
 
     delay(calback, time = 1000) {
@@ -65,13 +62,9 @@ export default {
           .then((data) => {
             this.options = data;
             callback();
-            this.ttt = callback;
-            return;
           });
       });
     },
   },
 };
 </script>
-
-<style scoped></style>
