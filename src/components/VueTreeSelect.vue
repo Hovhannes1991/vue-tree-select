@@ -40,9 +40,9 @@ export default {
     };
   },
 
-  // created() {
-  //   console.clear();
-  // },
+  created() {
+    console.clear();
+  },
 
   methods: {
     getData() {
