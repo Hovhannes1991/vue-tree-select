@@ -9,7 +9,7 @@
         :load-options="loadCountries"
         :normalizer="normalizer"
         :disable-fuzzy-matching="true"
-        @select="cities = null"
+        @select="onCountrySelect"
       />
     </div>
 
@@ -18,7 +18,7 @@
       <treeselect
         id="cities-treeselect"
         v-model="selected_city"
-        :options="cities"
+        :options="countryCities"
         :load-options="loadCities"
         :auto-load-root-options="false"
         :disabled="!selected_country"
@@ -45,7 +45,7 @@ export default {
       selected_country: null,
       selected_city: null,
       countries: null,
-      cities: null,
+      cities: {},
       normalizer(node) {
         return {
           id: node.country + "-unique-" + node.cities[0],
@@ -67,6 +67,10 @@ export default {
       if (!this.selected_country) return "";
       return this.selected_country.split("-unique-")[0];
     },
+
+    countryCities() {
+      return this.cities[this.selectedCountryName];
+    },
   },
 
   created() {
@@ -84,7 +88,7 @@ export default {
     loadCountries({ callback }) {
       this.delay(() => {
         this.CountriesService.getCountries().then((data) => {
-          this.countries = data.data.data;
+          this.countries = data;
           callback();
         });
       });
@@ -94,11 +98,19 @@ export default {
       this.delay(() => {
         this.CountriesService.getCities(this.selectedCountryName).then(
           (data) => {
-            this.cities = data.data.data;
+            let cities = {
+              ...this.cities,
+              [this.selectedCountryName]: data,
+            };
+            this.cities = cities;
             callback();
           }
         );
       });
+    },
+
+    onCountrySelect() {
+      // this.cities = null;
     },
   },
 };
