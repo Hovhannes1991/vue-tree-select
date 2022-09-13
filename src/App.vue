@@ -1,16 +1,16 @@
 <template>
   <div id="app">
-    <VueTreeSelect />
+    <CountriesCities />
   </div>
 </template>
 
 <script>
-import VueTreeSelect from "./components/VueTreeSelect.vue";
+import CountriesCities from "./components/CountriesCities.vue";
 
 export default {
   name: "App",
   components: {
-    VueTreeSelect,
+    CountriesCities,
   },
 };
 </script>
