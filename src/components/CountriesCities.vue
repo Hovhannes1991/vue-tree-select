@@ -16,6 +16,7 @@
     <div class="cityes-section">
       <label for="cities-treeselect">Cities</label>
       <treeselect
+        ref="yyy"
         id="cities-treeselect"
         v-model="selected_city"
         :options="countryCities"
@@ -110,7 +111,11 @@ export default {
     },
 
     onCountrySelect() {
-      // this.cities = null;
+      this.selected_city = null;
+
+      if (this.selected_country) {
+        this.$refs.yyy.loadOptions;
+      }
     },
   },
 };
