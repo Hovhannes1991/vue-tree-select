@@ -112,10 +112,6 @@ export default {
 
     onCountrySelect() {
       this.selected_city = null;
-
-      if (this.selected_country) {
-        this.$refs.yyy.loadOptions;
-      }
     },
   },
 };
